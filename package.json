@@ -1,0 +1,265 @@
+{
+  "name": "al-report-companion",
+  "displayName": "AL Report Companion",
+  "description": "Open report layouts, rename AL columns across RDLC files, and diagnose dataset and Visual Basic issues.",
+  "version": "0.9.0",
+  "publisher": "report-designer-tools",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "extensionKind": [
+    "ui"
+  ],
+  "main": "./src/extension.js",
+  "activationEvents": [
+    "onLanguage:al",
+    "onStartupFinished"
+  ],
+  "capabilities": {
+    "untrustedWorkspaces": {
+      "supported": false
+    },
+    "virtualWorkspaces": {
+      "supported": false
+    }
+  },
+  "contributes": {
+    "commands": [
+      {
+        "command": "bcReportLayouts.openExternally",
+        "title": "Open Layout…",
+        "category": "AL Report Companion"
+      },
+      {
+        "command": "bcReportLayouts.chooseAndOpenExternally",
+        "title": "Open Layout…",
+        "category": "AL Report Companion"
+      },
+      {
+        "command": "bcReportLayouts.openRDLC",
+        "title": "Open Layout (.rdlc)",
+        "category": "AL Report Companion"
+      },
+      {
+        "command": "bcReportLayouts.openDOCX",
+        "title": "Open Layout (.docx)",
+        "category": "AL Report Companion"
+      },
+      {
+        "command": "bcReportLayouts.chooseRDLC",
+        "title": "Open Layout (.rdlc)",
+        "category": "AL Report Companion"
+      },
+      {
+        "command": "bcReportLayouts.chooseDOCX",
+        "title": "Open Layout (.docx)",
+        "category": "AL Report Companion"
+      },
+      {
+        "command": "bcReportLayouts.openCalRDLC",
+        "title": "Open Layout (.rdlc)",
+        "category": "AL Report Companion"
+      },
+      {
+        "command": "bcReportLayouts.chooseCalRDLC",
+        "title": "Open Layout (.rdlc)",
+        "category": "AL Report Companion"
+      },
+      {
+        "command": "bcReportLayouts.importCalRDLC",
+        "title": "Import Layout (.rdlc)",
+        "category": "AL Report Companion"
+      },
+      {
+        "command": "bcReportLayouts.chooseImportCalRDLC",
+        "title": "Import Layout (.rdlc)",
+        "category": "AL Report Companion"
+      },
+      {
+        "command": "bcReportLayouts.closeCalSession",
+        "title": "Close Layout Session",
+        "category": "AL Report Companion"
+      },
+      {
+        "command": "bcReportLayouts.validateFields",
+        "title": "Validate Layout Fields",
+        "category": "AL Report Companion"
+      },
+      {
+        "command": "bcReportLayouts.validateVB",
+        "title": "Validate Layout Visual Basic",
+        "category": "AL Report Companion"
+      },
+      {
+        "command": "bcReportLayouts.renameFields",
+        "title": "Rename Layout Fields…",
+        "category": "AL Report Companion"
+      },
+      {
+        "command": "bcReportLayouts.renameColumn",
+        "title": "Rename Column and Layout Fields…",
+        "category": "AL Report Companion"
+      },
+      {
+        "command": "bcReportLayouts.openRDLCSource",
+        "title": "Open Layout Source (.rdlc)",
+        "category": "AL Report Companion"
+      },
+      {
+        "command": "bcReportLayouts.chooseRDLCSource",
+        "title": "Open Layout Source (.rdlc)",
+        "category": "AL Report Companion"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "bcReportLayouts.renameColumn",
+        "key": "f2",
+        "when": "editorTextFocus && !editorReadonly && resourceExtname == .al && bcReportLayouts.columnRename"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "bcReportLayouts.renameColumn",
+          "when": "resourceExtname == .al && bcReportLayouts.columnRename",
+          "group": "1_modification@10"
+        },
+        {
+          "command": "bcReportLayouts.openRDLC",
+          "when": "resourceExtname == .al && bcReportLayouts.showRDLC",
+          "group": "navigation@100"
+        },
+        {
+          "command": "bcReportLayouts.openDOCX",
+          "when": "resourceExtname == .al && bcReportLayouts.showDOCX",
+          "group": "navigation@101"
+        },
+        {
+          "command": "bcReportLayouts.openCalRDLC",
+          "when": "(resourceExtname == .txt || resourceExtname == .cal) && bcReportLayouts.hasCalLayout",
+          "group": "navigation@100"
+        },
+        {
+          "command": "bcReportLayouts.importCalRDLC",
+          "when": "(resourceExtname == .txt || resourceExtname == .cal) && bcReportLayouts.hasCalSession",
+          "group": "navigation@101"
+        },
+        {
+          "command": "bcReportLayouts.openRDLCSource",
+          "when": "resourceExtname == .al && bcReportLayouts.showRDLC",
+          "group": "navigation@100"
+        }
+      ],
+      "explorer/context": [
+        {
+          "command": "bcReportLayouts.chooseRDLC",
+          "when": "resourceExtname == .al && resource in bcReportLayouts.rdlcResources",
+          "group": "navigation@100"
+        },
+        {
+          "command": "bcReportLayouts.chooseDOCX",
+          "when": "resourceExtname == .al && resource in bcReportLayouts.docxResources",
+          "group": "navigation@101"
+        },
+        {
+          "command": "bcReportLayouts.chooseCalRDLC",
+          "when": "(resourceExtname == .txt || resourceExtname == .cal) && resource in bcReportLayouts.calResources",
+          "group": "navigation@100"
+        },
+        {
+          "command": "bcReportLayouts.chooseImportCalRDLC",
+          "when": "(resourceExtname == .txt || resourceExtname == .cal) && resource in bcReportLayouts.calSessionResources",
+          "group": "navigation@101"
+        },
+        {
+          "command": "bcReportLayouts.chooseRDLCSource",
+          "when": "resourceExtname == .al && resource in bcReportLayouts.rdlcResources",
+          "group": "navigation@100"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "bcReportLayouts.chooseAndOpenExternally",
+          "when": "false"
+        },
+        {
+          "command": "bcReportLayouts.openRDLC",
+          "when": "false"
+        },
+        {
+          "command": "bcReportLayouts.openDOCX",
+          "when": "false"
+        },
+        {
+          "command": "bcReportLayouts.chooseRDLC",
+          "when": "false"
+        },
+        {
+          "command": "bcReportLayouts.chooseDOCX",
+          "when": "false"
+        },
+        {
+          "command": "bcReportLayouts.chooseCalRDLC",
+          "when": "false"
+        },
+        {
+          "command": "bcReportLayouts.chooseImportCalRDLC",
+          "when": "false"
+        },
+        {
+          "command": "bcReportLayouts.chooseRDLCSource",
+          "when": "false"
+        },
+        {
+          "command": "bcReportLayouts.openRDLCSource",
+          "when": "resourceExtname == .al && bcReportLayouts.showRDLC"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "AL Report Companion",
+      "properties": {
+        "bcReportLayouts.validateVisualBasic": {
+          "type": "boolean",
+          "default": true,
+          "scope": "resource",
+          "description": "Check embedded VB code and all RDLC expressions using the Windows .NET Framework VB compiler. Report code is compiled but never executed. This is a static check with a simplified report context."
+        },
+        "bcReportLayouts.reportBuilderPath": {
+          "type": "string",
+          "default": "",
+          "scope": "machine",
+          "description": "Full path to the Report Builder .exe used for embedded C/AL layouts. Leave empty to search standard Microsoft Report Builder installation folders."
+        },
+        "bcReportLayouts.enableReportCop": {
+          "type": "boolean",
+          "default": false,
+          "scope": "resource",
+          "description": "Explicitly enable Report Cop diagnostics for this AL project: missing RDLC fields, Visual Basic errors and unused report columns. Disabled by default. Layout opening and F2 renaming remain available."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "test": "node --test",
+    "package": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/package.ps1"
+  },
+  "icon": "media/icon.png",
+  "galleryBanner": {
+    "color": "#11263b",
+    "theme": "dark"
+  },
+  "keywords": [
+    "AL",
+    "Business Central",
+    "RDLC",
+    "report",
+    "layout",
+    "Visual Basic"
+  ]
+}
